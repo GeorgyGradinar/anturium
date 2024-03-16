@@ -1,0 +1,7 @@
+{
+  "name": "anturiumAI",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
