@@ -6,7 +6,7 @@
   </ion-page>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {IonContent, IonPage} from '@ionic/vue';
 import Main from "../components/pages/MainBlock.vue";
 </script>
