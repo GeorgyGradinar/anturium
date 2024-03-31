@@ -1,10 +1,10 @@
 export default function storage() {
 
-  function setLocalStorage(KEY, value) {
+  function setLocalStorage(KEY: string, value: any) {
     localStorage.setItem(KEY, JSON.stringify(value));
   }
 
-  function getLocalStorage(KEY) {
+  function getLocalStorage(KEY: string) {
     const saved: any = localStorage.getItem(KEY);
     return saved ? JSON.parse(saved) : '';
   }

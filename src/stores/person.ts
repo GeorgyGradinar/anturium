@@ -15,7 +15,7 @@ export const person = defineStore('personStore', () => {
     setLocalStorage(ANTURIUM_STORE_KEY, null);
   }
 
-  function changePerson(data) {
+  function changePerson(data: any) {
     person.value = data;
   }
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ANTURIUM_STORE_KEY, HEADER_PARAMETERS, MAIN_URL} from "../../../config.js";
+import {ANTURIUM_STORE_KEY, HEADER_PARAMETERS, MAIN_URL} from "../../../config";
 import {ILogin, IRegistration} from "@/interfaces/auth.js";
 import getHeaders from "@/mixins/requests/getHeaders";
 import {person} from "@/stores/person";

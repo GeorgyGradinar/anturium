@@ -4,9 +4,9 @@ import {storeToRefs} from "pinia";
 export default function getHeaders(payload: any) {
   const personStore = person();
   const {token} = storeToRefs(personStore)
-  const headers = {};
+  const headers: {[key: string]:any} = {};
 
-  payload.forEach(headerElement => {
+  payload.forEach((headerElement: any) => {
     if (headerElement.key === 'Authorization') {
       headers[headerElement.key] = `${token.value}`;
     } else {
