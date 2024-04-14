@@ -13,5 +13,7 @@ export default function getHeaders(payload: any) {
       headers[headerElement.key] = headerElement.body;
     }
   });
+
+  console.log(headers)
   return {headers}
 }

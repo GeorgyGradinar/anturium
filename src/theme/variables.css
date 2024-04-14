@@ -4,7 +4,9 @@ http://ionicframework.com/docs/theming/ */
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
+  --white: #ffffffcf;
   --primary-blue: #08e7f9;
+  --dark-blue: rgba(19, 127, 135, 1);
   --primary-green: #89e01d;
   --primary-orange: #ff6b02;
   --primary-dark: #121212;

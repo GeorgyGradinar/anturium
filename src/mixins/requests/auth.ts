@@ -24,7 +24,7 @@ export default function auth() {
     if (token.value) {
       getPersonInfo();
     } else if (router.currentRoute.value.path === MAIN) {
-      ionRouter.push(LOGIN);
+      // ionRouter.push(LOGIN);
     }
   }
 
