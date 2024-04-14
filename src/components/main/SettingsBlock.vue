@@ -1,7 +1,7 @@
 <template>
   <div class="settings-block">
     <button class="add-pair" @click="toggleOpenAddPairModal(true)">Создать пару</button>
-    <button class="add-pair" @click="toggleOpenAddPairModal(true)">Добавить API key</button>
+    <button class="add-pair" @click="testApi">Добавить API key</button>
   </div>
 
   <AddPairModal></AddPairModal>
@@ -10,7 +10,6 @@
 <script setup lang="ts">
 import {modals} from "@/stores/modals";
 import AddPairModal from "@/components/modals/AddPairModal.vue";
-import {onMounted} from "vue";
 import axios from "axios";
 import {HEADER_PARAMETERS, MAIN_URL} from "../../../config";
 import getHeaders from "@/mixins/requests/getHeaders";
@@ -18,9 +17,7 @@ import getHeaders from "@/mixins/requests/getHeaders";
 const modalsStore = modals();
 const {toggleOpenAddPairModal} = modalsStore;
 
-onMounted(() => {
-
-  setTimeout(() => {
+function testApi(){
     const data = {
       "publicKey": "i9orwLtWoXcjDDsS5f0va6gNOo0CgLcVUoq6XQEbLatiC3iV1jX3qWZV7cWIKTsR",
       "secretKey": "JcTPToTiEYnMSuzrHTPSsnwYnp2YI98RI95uuhsH6QKSQ5fC6BFXocaRfnb3ukHw"
@@ -30,9 +27,7 @@ onMounted(() => {
         .then(response => {
           console.log(response)
         })
-  }, 1500)
-
-})
+}
 </script>
 
 <style scoped lang="scss">

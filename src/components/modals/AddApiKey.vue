@@ -49,14 +49,14 @@ import {modals} from "@/stores/modals";
 import {storeToRefs} from "pinia";
 import {ref} from "vue";
 
+const modalsStore = modals();
+const {isOpenAddApiKeyModal} = storeToRefs(modalsStore);
 
 const pair = ref<string>('');
 const countCoin = ref<number>(0);
 const price = ref<number>(0);
 
-
-const modalsStore = modals();
-const {isOpenAddApiKeyModal} = storeToRefs(modalsStore);
+function
 
 </script>
 
