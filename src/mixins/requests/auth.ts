@@ -2,7 +2,7 @@ import axios from "axios";
 import {ANTURIUM_STORE_KEY, HEADER_PARAMETERS, MAIN_URL} from "../../../config";
 import {ILogin, IRegistration} from "@/interfaces/auth.js";
 import getHeaders from "@/mixins/requests/getHeaders";
-import {person} from "@/stores/person";
+import {personsStore} from "@/stores/person";
 import storage from "@/mixins/storage";
 import {storeToRefs} from "pinia";
 import {useIonRouter} from "@ionic/vue";
@@ -13,7 +13,7 @@ export default function auth() {
   const ionRouter = useIonRouter();
   const router = useRouter();
 
-  const personStore = person();
+  const personStore = personsStore();
   const {changeToken, changePerson} = personStore;
   const {token} = storeToRefs(personStore);
   const {getLocalStorage} = storage();
@@ -24,7 +24,7 @@ export default function auth() {
     if (token.value) {
       getPersonInfo();
     } else if (router.currentRoute.value.path === MAIN) {
-      // ionRouter.push(LOGIN);
+      ionRouter.push(LOGIN);
     }
   }
 

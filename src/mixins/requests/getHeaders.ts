@@ -1,8 +1,8 @@
-import {person} from "@/stores/person";
+import {personsStore} from "@/stores/person";
 import {storeToRefs} from "pinia";
 
 export default function getHeaders(payload: any) {
-  const personStore = person();
+  const personStore = personsStore();
   const {token} = storeToRefs(personStore)
   const headers: {[key: string]:any} = {};
 
@@ -14,6 +14,5 @@ export default function getHeaders(payload: any) {
     }
   });
 
-  console.log(headers)
   return {headers}
 }

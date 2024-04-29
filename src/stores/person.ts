@@ -3,7 +3,7 @@ import {ref} from "vue";
 import storage from "@/mixins/storage";
 import {ANTURIUM_STORE_KEY} from "../../config";
 
-export const person = defineStore('personStore', () => {
+export const personsStore = defineStore('personStore', () => {
   const {setLocalStorage} = storage();
 
   const person = ref<any>(null);

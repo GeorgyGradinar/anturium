@@ -9,9 +9,25 @@ http://ionicframework.com/docs/theming/ */
   --dark-blue: rgba(19, 127, 135, 1);
   --primary-green: #89e01d;
   --primary-orange: #ff6b02;
+  --primary-orange: #ff6b02;
   --primary-dark: #121212;
   --secondary-dark: #193f41;
 
+  --text: #fff;
+  --text-second: #858584;
+  --primary: #658d1b;
+  --primary-lighten: #C2E84E;
+  --secondary: #4b4b4b;
+  --hover: #dadada;
+  --background: #121212;
+  --card-bg-primary: linear-gradient(-37deg, #323437 0%, #202225 100%);
+  --background-card: #121212;
+  --card-bg-secondary: #202124;
+  --border-stroke-on-card: #ffffff1a;
+  --background-minting: rgba(187, 184, 184, 0.24);
+  --blue-light: #2196F3;
+  --green: #a6ff00;
+  --background-main-button: linear-gradient(80deg, rgba(146, 224, 14, 1) 0%, rgba(4, 232, 255, 1) 100%);
 
 
 

@@ -1,0 +1,6 @@
+.primary-button{
+    border: 1px solid var(--primary-blue);
+    color: var(--primary-blue);
+    padding: 5px 10px;
+    transition: all 0.2s;
+}

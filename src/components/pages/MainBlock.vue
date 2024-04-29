@@ -1,19 +1,30 @@
 <template>
   <div class="main-page">
     <SettingsBlock></SettingsBlock>
-    <OrdersBlock></OrdersBlock>
-
+    <ShowApiKeyBlock v-for="apiKey in person?.apiKeys" :key="apiKey.id" :api-key="apiKey"></ShowApiKeyBlock>
   </div>
 </template>
 
 <script setup lang="ts">
 import SettingsBlock from "@/components/main/SettingsBlock.vue";
-import OrdersBlock from "@/components/main/OrdersBlock.vue";
+import ShowApiKeyBlock from "@/components/main/ShowApiKeyBlock.vue";
+import {storeToRefs} from "pinia";
+import {personsStore} from "@/stores/person";
+import botRequests from "@/mixins/requests/bot/botRequests";
+import {watch} from "vue";
+
+const personStore = personsStore();
+const {person} = storeToRefs(personStore);
+const {getAllCryptoPairs, getAllCryptoPairsGrid} = botRequests();
+
+watch(person, () => {
+  getAllCryptoPairs();
+  getAllCryptoPairsGrid()
+})
 </script>
 
 <style scoped lang="scss">
 .main-page {
-  width: 100vw;
   max-height: calc(100vh - 51px);
   padding: 20px;
 }

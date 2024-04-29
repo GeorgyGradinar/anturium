@@ -83,6 +83,7 @@ import {modals} from "@/stores/modals";
 import {storeToRefs} from "pinia";
 import {ref} from "vue";
 import {pairs} from "@/stores/pairs";
+import setSettingsRequests from "@/mixins/requests/bot/setSettingsRequests";
 
 const pairsStore = pairs();
 const {addNewPair} = pairsStore;
@@ -96,16 +97,11 @@ const countDecimals = ref<number>(0);
 
 const modalsStore = modals();
 const {isOpenAddPairModal} = storeToRefs(modalsStore);
+const {createCryptoPairGrid} = setSettingsRequests()
 
 function createPair() {
-  addNewPair({
-    pair: pair.value,
-    countCoin: countCoin.value,
-    price: price.value,
-    countOrders: countOrders.value,
-    step: step.value,
-    countDecimals: countDecimals.value
-  })
+
+  createCryptoPairGrid()
 }
 </script>
 
