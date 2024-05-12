@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <SettingsBlock></SettingsBlock>
-    <ShowApiKeyBlock v-for="apiKey in testForApiKey" :key="apiKey.id" :api-key="apiKey"></ShowApiKeyBlock>
+    <ShowApiKeyBlock v-for="apiKey in person?.apiKeys" :key="apiKey.id" :api-key="apiKey"></ShowApiKeyBlock>
   </div>
 </template>
 
@@ -21,7 +21,7 @@ let testForApiKey = ref([{name: 'apiKey1'}, {name: 'apiKey2'}])
 
 watch(person, () => {
   getAllCryptoPairs();
-  getAllCryptoPairsGrid()
+  getAllCryptoPairsGrid();
 })
 </script>
 

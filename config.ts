@@ -1,4 +1,4 @@
-export const MAIN_URL = 'http://85.92.110.216:5000';
+export const MAIN_URL = 'https://anturium.online';
 export const ANTURIUM_STORE_KEY = 'anutium_key';
 
 export const HEADER_PARAMETERS = {

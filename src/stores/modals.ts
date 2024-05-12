@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 import {ref} from "vue";
 
 export const modals = defineStore('modalsStore', () => {
-  const isOpenAddPairModal = ref<boolean>(true);
+  const isOpenAddPairModal = ref<boolean>(false);
   const isOpenAddApiKeyModal = ref<boolean>(false);
   const isOpenTypeOfBots = ref<boolean>(false);
   const isOpenAlreadyCreatedPairs = ref<boolean>(false);
