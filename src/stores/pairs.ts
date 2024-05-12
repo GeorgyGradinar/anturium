@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 import {ref} from "vue";
 
 export const pairs = defineStore('pairsStore', () => {
-  const allPairs = <any> ref(null);
+  const allPairs = <any>ref(null);
   const allApiKeys = ref(['kfdjdnvjkf435345', 'sdjfsdf345kj353']);
   const selectedTypeOfBot = ref<string | null>(null);
   const alreadySelectedPair = ref([
@@ -71,31 +71,51 @@ export const pairs = defineStore('pairsStore', () => {
       decimals: 2
     },
   ]);
-  const selectedPair =<any> ref(null);
+  const selectedPair = <any>ref(null);
 
   function clearPairsStore() {
     allPairs.value = null;
     selectedTypeOfBot.value = null;
   }
 
-  function changeAllPairs(newPairs : any) {
+  function changeAllPairs(newPairs: any) {
     allPairs.value = newPairs;
   }
 
-  function addNewPair(newPair : any) {
+  function changePairsFromWS(data: any) {
+    if (!allPairs.value) return;
+
+    allPairs.value.forEach((apiData: any) => {
+      if (apiData.api.id === data.api.id) {
+        data.positionsRisk.forEach((pairWS: any) => {
+          apiData.positionsRisk.find((pair: any) => {
+            if (pairWS.symbol === pair.positionRisk.symbol) {
+              pair.positionRisk = {
+                ...pair.positionRisk,
+                ...pairWS
+              }
+              return
+            }
+          })
+        })
+      }
+    })
+  }
+
+  function addNewPair(newPair: any) {
     allPairs.value.push(newPair);
   }
 
-  function changeSelectedTypeOfBot(type : any) {
+  function changeSelectedTypeOfBot(type: any) {
     selectedTypeOfBot.value = type;
   }
 
-  function changeSelectedPair(pair : any) {
+  function changeSelectedPair(pair: any) {
     selectedPair.value = pair;
   }
 
   return {
-    allPairs, addNewPair, changeAllPairs,
+    allPairs, addNewPair, changeAllPairs, changePairsFromWS,
     allApiKeys,
     selectedTypeOfBot, changeSelectedTypeOfBot,
     alreadySelectedPair,

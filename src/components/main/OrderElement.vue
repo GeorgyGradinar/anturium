@@ -9,11 +9,11 @@
     <div class="wrapper-buttons">
       <button class="stop-spy" @click="stopWatching(pair?.symbol)">Остановить бот</button>
       <button class="take-profit"
-              @click="takeProfit(pair?.symbol, apiId)"
+              @click="takeProfit(pair?.symbol, api?.id)"
               :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0}">
         Собрать профит
       </button>
-    </div>
+  </div>
   </div>
 </template>
 
@@ -28,10 +28,12 @@ import botRequests from "@/mixins/requests/bot/botRequests";
 
 const props = defineProps({
   pair: Object,
-  apiId: String
+  api: Object
 })
-const {pair, apiId} = toRefs(props);
+const {pair, api} = toRefs(props);
 const {takeProfit, stopWatching} = botRequests();
+
+
 
 </script>
 

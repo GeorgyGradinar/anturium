@@ -8,6 +8,7 @@ import {storeToRefs} from "pinia";
 import {useIonRouter} from "@ionic/vue";
 import {useRouter} from "vue-router";
 import {LOGIN, MAIN} from "@/router";
+import botRequests from "@/mixins/requests/bot/botRequests";
 
 export default function auth() {
   const ionRouter = useIonRouter();
@@ -17,6 +18,7 @@ export default function auth() {
   const {changeToken, changePerson} = personStore;
   const {token} = storeToRefs(personStore);
   const {getLocalStorage} = storage();
+  const {webSocketBotsInfo} = botRequests();
 
   function initStore() {
     changeToken(getLocalStorage(ANTURIUM_STORE_KEY));
@@ -50,6 +52,7 @@ export default function auth() {
     axios.get(`${MAIN_URL}/auth/user`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.authorization]))
       .then(response => {
         changePerson(response.data.data);
+        webSocketBotsInfo();
       })
   }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper-api-key">
-    <p class="name-api-key">{{ apiKey?.apiId }}</p>
+    <p class="name-api-key">{{ apiKey?.api.name }}</p>
         <OrdersBlock :apiKeysPair="apiKey"></OrdersBlock>
   </div>
 </template>

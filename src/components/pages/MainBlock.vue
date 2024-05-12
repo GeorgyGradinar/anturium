@@ -18,10 +18,9 @@ const personStore = personsStore();
 const {person} = storeToRefs(personStore);
 const pairsStore = pairs();
 const {allPairs} = storeToRefs(pairsStore);
-const {getAllCryptoPairs, getAllCryptoPairsGrid} = botRequests();
+const {getAllCryptoPairsGrid} = botRequests();
 
 watch(person, () => {
-  getAllCryptoPairs();
   getAllCryptoPairsGrid();
 })
 </script>

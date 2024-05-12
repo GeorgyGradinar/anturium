@@ -3,7 +3,7 @@
     <div class="wrapper-pnl">
       <div class="pnl">
         <p class="price" :class="{'up' : pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0}">
-          {{ pair?.unRealizedProfit }}
+          {{ cutUnRealizedProfit(pair?.unRealizedProfit) }}
         </p>
         <label>$</label>
       </div>
@@ -28,6 +28,11 @@ const props = defineProps({
   pair: Object
 })
 const {pair} = toRefs(props);
+
+function cutUnRealizedProfit(profit: string) {
+  return Number(profit).toFixed(2);
+}
+
 </script>
 
 <style scoped lang="scss">
