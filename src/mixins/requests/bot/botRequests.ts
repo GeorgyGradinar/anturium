@@ -22,14 +22,14 @@ export default function botRequests() {
       })
   }
 
-  function takeProfit(symbol, apiId) {
+  function takeProfit(symbol : string, apiId: string | undefined) {
     axios.post(`${MAIN_URL}/gridBot/takeProfit`, {symbol, apiId}, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
         changeAllPairs(response.data.data);
       })
   }
 
-  function stopWatching(symbol) {
+  function stopWatching(symbol: string) {
     axios.post(`${MAIN_URL}/gridBot/watching`, {symbol}, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
         changeAllPairs(response.data.data);

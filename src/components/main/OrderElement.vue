@@ -30,7 +30,7 @@ const props = defineProps({
   pair: Object,
   apiId: String
 })
-const {pair} = toRefs(props);
+const {pair, apiId} = toRefs(props);
 const {takeProfit, stopWatching} = botRequests();
 
 </script>

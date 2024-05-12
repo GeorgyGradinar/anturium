@@ -118,7 +118,7 @@ const {toggleOpenAlreadyCreatedPair, toggleOpenAddPairModal} = modalsStore;
 const {isOpenAddPairModal} = storeToRefs(modalsStore);
 const {createCryptoPairGrid} = setSettingsRequests()
 
-const selectedApiKey = ref<string>('');
+const selectedApiKey = ref<any>('');
 const symbol = ref<string>('');
 const countCoin = ref<number>(0);
 const price = ref<number>(0);
@@ -149,7 +149,7 @@ watch(isOpenAddPairModal, () => {
 
 
 function createPair() {
-  const body = {
+  createCryptoPairGrid({
     idApi: selectedApiKey.value?._id,
     params: {
       symbol: symbol.value,
@@ -162,10 +162,7 @@ function createPair() {
       strategy: "MARTINGALE",
       marginType: "CROSSED",
       stepRevers: 10
-    }
-  }
-
-  createCryptoPairGrid(body)
+    },})
 }
 
 function seeAlreadyCreatedPairs() {
