@@ -1,12 +1,12 @@
 <template>
   <div class="price-info">
     <p class="price-enter">
-      {{ pair?.priceEnter }}
+      {{ pair?.entryPrice }}
       <label>Цена входа</label>
     </p>
 
     <p class="price-lickvidation">
-      {{ pair?.lickvidation }}
+      {{ pair?.liquidationPrice }}
       <label>Цена ликвидации</label>
     </p>
   </div>

@@ -3,7 +3,7 @@
     <h4>{{ pair?.symbol }}</h4>
 
     <div class="market-price">
-      <p class="price"><span>$</span>{{ pair?.priceMarket }}</p>
+      <p class="price"><span>$</span>{{ pair?.markPrice }}</p>
       <p class="label">Рыночная цена</p>
     </div>
   </div>

@@ -10,7 +10,8 @@
       <div class="wrapper-api-keys">
         <v-select
             v-model="selectedApiKey"
-            :items="allApiKeys"
+            :items="person.apiKeys"
+            :item-title="'name'"
             variant="outlined"
             persistent-hint
             hide-details
@@ -18,6 +19,7 @@
             rounded="0"
             color="#08e7f9"
             base-color="#08e7f9"
+            return-object
         ></v-select>
       </div>
 
@@ -104,10 +106,13 @@ import {storeToRefs} from "pinia";
 import {ref, watch} from "vue";
 import {pairs} from "@/stores/pairs";
 import setSettingsRequests from "@/mixins/requests/bot/setSettingsRequests";
+import {personsStore} from "@/stores/person";
 
 const pairsStore = pairs();
 const {addNewPair, changeSelectedPair} = pairsStore;
 const {allApiKeys, selectedPair} = storeToRefs(pairsStore);
+const personStore = personsStore();
+const {person} = storeToRefs(personStore);
 const modalsStore = modals();
 const {toggleOpenAlreadyCreatedPair, toggleOpenAddPairModal} = modalsStore;
 const {isOpenAddPairModal} = storeToRefs(modalsStore);
@@ -145,17 +150,21 @@ watch(isOpenAddPairModal, () => {
 
 function createPair() {
   const body = {
-    adApi: selectedApiKey.value,
+    idApi: selectedApiKey.value?._id,
     params: {
       symbol: symbol.value,
       qty: countCoin.value,
-      price: price.value,
+      // price: price.value,
       side: 'BUY',
       qtyOpenOrders: countOrders.value,
       step: step.value,
-      decimals: countDecimals.value
+      decimals: countDecimals.value,
+      strategy: "MARTINGALE",
+      marginType: "CROSSED",
+      stepRevers: 10
     }
   }
+
   createCryptoPairGrid(body)
 }
 

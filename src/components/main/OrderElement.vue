@@ -7,8 +7,9 @@
     <PriceInfo :pair="pair"></PriceInfo>
 
     <div class="wrapper-buttons">
-      <button class="stop-spy">Остановить отслеживание</button>
+      <button class="stop-spy" @click="stopWatching(pair?.symbol)">Остановить бот</button>
       <button class="take-profit"
+              @click="takeProfit(pair?.symbol, apiId)"
               :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0}">
         Собрать профит
       </button>
@@ -23,12 +24,14 @@ import PnlBlock from "@/components/main/OrderElement/PnlBlock.vue";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import MarginBlock from "@/components/main/OrderElement/MarginBlock.vue";
 import PriceInfo from "@/components/main/OrderElement/PriceInfo.vue";
+import botRequests from "@/mixins/requests/bot/botRequests";
 
 const props = defineProps({
   pair: Object,
   apiId: String
 })
 const {pair} = toRefs(props);
+const {takeProfit, stopWatching} = botRequests();
 
 </script>
 

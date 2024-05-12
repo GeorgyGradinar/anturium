@@ -1,21 +1,18 @@
 <template>
   <div class="wrapper-api-key">
-    <p class="name-api-key">{{ apiKey?.name }}</p>
-        <OrdersBlock></OrdersBlock>
+    <p class="name-api-key">{{ apiKey?.apiId }}</p>
+        <OrdersBlock :apiKeysPair="apiKey"></OrdersBlock>
   </div>
 </template>
 
 <script setup lang="ts">
 import OrdersBlock from "@/components/main/OrdersBlock.vue";
-import {pairs} from "@/stores/pairs";
-import {storeToRefs} from "pinia";
+import {toRefs} from "vue";
 
 const props = defineProps({
   apiKey: Object
 })
-
-const pairsStore = pairs();
-const {allPairs} = storeToRefs(pairsStore);
+const {apiKey} = toRefs(props)
 </script>
 
 <style scoped lang="scss">

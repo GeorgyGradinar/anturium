@@ -22,12 +22,15 @@ export default function botRequests() {
       })
   }
 
-  function takeProfit() {
-    const body = {
-      "symbol": "BTCUSDT",
-      "apiId": "661c1fdbf0bacb58f8f527a2"
-    }
-    axios.post(`${MAIN_URL}/gridBot/takeProfit`, body, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
+  function takeProfit(symbol, apiId) {
+    axios.post(`${MAIN_URL}/gridBot/takeProfit`, {symbol, apiId}, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
+      .then(response => {
+        changeAllPairs(response.data.data);
+      })
+  }
+
+  function stopWatching(symbol) {
+    axios.post(`${MAIN_URL}/gridBot/watching`, {symbol}, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
         changeAllPairs(response.data.data);
       })
@@ -36,6 +39,7 @@ export default function botRequests() {
   return {
     getAllCryptoPairs,
     getAllCryptoPairsGrid,
-    takeProfit
+    takeProfit,
+    stopWatching
   }
 }

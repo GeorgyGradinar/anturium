@@ -15,7 +15,7 @@
     </div>
 
     <div class="wrapper-quantity-coin">
-      <p class="quantity-coin">{{ pair?.quantityCoin }}</p>
+      <p class="quantity-coin">{{ pair?.positionAmt }}</p>
       <label>Колличество монет</label>
     </div>
   </div>

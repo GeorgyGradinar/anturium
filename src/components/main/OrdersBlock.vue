@@ -1,6 +1,6 @@
 <template>
   <div class="orders-block">
-    <template v-for="pair in testForApiKey">
+    <template v-for="pair in apiKeysPair?.positionRisk">
       <OrderElement :pair="pair" :apiId="apiKeysPair?.apiId"></OrderElement>
     </template>
   </div>
