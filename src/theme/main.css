@@ -4,3 +4,17 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+.ion-ce {
+    overflow: hidden;
+}
+
+.v-menu > .v-overlay__content > .v-list {
+    background-color: rgba(103, 103, 103, 0.6) !important;
+    backdrop-filter: blur(5px) !important;
+    color: var(--primary-blue);
+}
+
+.v-list-item-title {
+    font-size: 12px;
+}

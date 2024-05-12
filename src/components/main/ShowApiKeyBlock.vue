@@ -1,9 +1,7 @@
 <template>
   <div class="wrapper-api-key">
     <p class="name-api-key">{{ apiKey.name }}</p>
-    <template v-for="apikey in allPairs">
-        <OrdersBlock :apiKeysPair="apikey"></OrdersBlock>
-    </template>
+        <OrdersBlock></OrdersBlock>
   </div>
 </template>
 
@@ -26,7 +24,6 @@ const {allPairs} = storeToRefs(pairsStore);
   margin-top: 40px;
   padding: 20px 0;
   border-top: 1px solid var(--secondary-dark);
-  border-bottom: 1px solid var(--secondary-dark);
 
   .name-api-key {
     position: absolute;
@@ -34,6 +31,7 @@ const {allPairs} = storeToRefs(pairsStore);
     left: 40px;
     padding: 0 10px;
     background-color: var(--primary-dark);
+    color: var(--secondary-dark);
   }
 }
 </style>

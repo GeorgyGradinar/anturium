@@ -1,21 +1,27 @@
 <template>
-  <div class="order">
-    <h4>{{ pair.symbol }}</h4>
-    <div class="pnl">
-      <p class="title">Pnl</p>
-      <p class="money">{{ pair?.unRealizedProfit }}</p>
-      <p class="currency">USDT</p>
-    </div>
+  <div class="order"
+       :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0}">
+    <FirstBlock :pair="pair"></FirstBlock>
+    <PnlBlock :pair="pair"></PnlBlock>
+    <!--    <MarginBlock :pair="pair"></MarginBlock>-->
+    <PriceInfo :pair="pair"></PriceInfo>
 
     <div class="wrapper-buttons">
-      <button class="primary-button">Остановить отслеживание</button>
-      <button class="primary-button">Собрать профит</button>
+      <button class="stop-spy">Остановить отслеживание</button>
+      <button class="take-profit"
+              :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0}">
+        Собрать профит
+      </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import {toRefs} from "vue";
+import FirstBlock from "@/components/main/OrderElement/FirstBlock.vue";
+import PnlBlock from "@/components/main/OrderElement/PnlBlock.vue";
+import MarginBlock from "@/components/main/OrderElement/MarginBlock.vue";
+import PriceInfo from "@/components/main/OrderElement/PriceInfo.vue";
 
 const props = defineProps({
   pair: Object,
@@ -27,12 +33,25 @@ const {pair} = toRefs(props);
 
 <style scoped lang="scss">
 @import "src/theme/buttons.css";
+
 .order {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  border: 1px solid var(--primary-orange);
-  padding: 10px;
+  gap: 15px;
+  border: 2px solid var(--primary-orange);
+  padding: 20px;
+  background-color: var(--light-dark);
+  border-radius: 10px;
+
+  &.up {
+    border: 2px solid var(--primary-green);
+    background-color: var(--light-green);
+  }
+
+  &.down {
+    border: 2px solid var(--red);
+    background-color: var(--light-red);
+  }
 
   h4 {
     margin: unset;
@@ -51,6 +70,44 @@ const {pair} = toRefs(props);
   .wrapper-buttons {
     display: flex;
     gap: 10px;
+
+    .take-profit {
+      padding: 5px 10px;
+      transition: all 0.2s;
+
+      &.up {
+        color: var(--primary-green);
+        border: 1px solid var(--light-green);
+
+        &:hover {
+          border: 1px solid var(--primary-green);
+          background-color: var(--light-green);
+        }
+      }
+
+      &.down {
+        color: var(--red);
+        border: 1px solid var(--light-red);
+
+        &:hover {
+          border: 1px solid var(--red);
+          background-color: var(--light-red);
+        }
+      }
+    }
+
+    .stop-spy {
+      color: var(--primary-orange);
+      border: 1px solid var(--light-orange);
+      padding: 5px 10px;
+      transition: all 0.2s;
+
+      &:hover {
+        border: 1px solid var(--primary-orange);
+        background-color: var(--light-orange);
+
+      }
+    }
   }
 }
 </style>

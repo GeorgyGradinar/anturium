@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <SettingsBlock></SettingsBlock>
-    <ShowApiKeyBlock v-for="apiKey in person?.apiKeys" :key="apiKey.id" :api-key="apiKey"></ShowApiKeyBlock>
+    <ShowApiKeyBlock v-for="apiKey in testForApiKey" :key="apiKey.id" :api-key="apiKey"></ShowApiKeyBlock>
   </div>
 </template>
 
@@ -11,11 +11,13 @@ import ShowApiKeyBlock from "@/components/main/ShowApiKeyBlock.vue";
 import {storeToRefs} from "pinia";
 import {personsStore} from "@/stores/person";
 import botRequests from "@/mixins/requests/bot/botRequests";
-import {watch} from "vue";
+import {ref, watch} from "vue";
 
 const personStore = personsStore();
 const {person} = storeToRefs(personStore);
 const {getAllCryptoPairs, getAllCryptoPairsGrid} = botRequests();
+
+let testForApiKey = ref([{name: 'apiKey1'}, {name: 'apiKey2'}])
 
 watch(person, () => {
   getAllCryptoPairs();

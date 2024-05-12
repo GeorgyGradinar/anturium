@@ -6,6 +6,21 @@
       transition="dialog-bottom-transition"
   >
     <div class="content">
+
+      <div class="wrapper-api-keys">
+        <v-select
+            v-model="selectedApiKey"
+            :items="allApiKeys"
+            variant="outlined"
+            persistent-hint
+            hide-details
+            label="Api key"
+            rounded="0"
+            color="#08e7f9"
+            base-color="#08e7f9"
+        ></v-select>
+      </div>
+
       <div class="wrapper-parameter">
         <v-text-field variant="outlined"
                       label="Пара"
@@ -13,7 +28,7 @@
                       rounded="0"
                       color="#08e7f9"
                       base-color="#08e7f9"
-                      v-model="pair">
+                      v-model="symbol">
         </v-text-field>
       </div>
 
@@ -74,6 +89,11 @@
       </div>
 
       <button class="create-pair" @click="createPair">Создать</button>
+
+      <div class="wrapper-already-create-pair">
+        <button @click="seeAlreadyCreatedPairs">Посмотреть уже созданные пары</button>
+      </div>
+
     </div>
   </v-dialog>
 </template>
@@ -81,27 +101,67 @@
 <script setup lang="ts">
 import {modals} from "@/stores/modals";
 import {storeToRefs} from "pinia";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import {pairs} from "@/stores/pairs";
 import setSettingsRequests from "@/mixins/requests/bot/setSettingsRequests";
 
 const pairsStore = pairs();
-const {addNewPair} = pairsStore;
+const {addNewPair, changeSelectedPair} = pairsStore;
+const {allApiKeys, selectedPair} = storeToRefs(pairsStore);
+const modalsStore = modals();
+const {toggleOpenAlreadyCreatedPair, toggleOpenAddPairModal} = modalsStore;
+const {isOpenAddPairModal} = storeToRefs(modalsStore);
+const {createCryptoPairGrid} = setSettingsRequests()
 
-const pair = ref<string>('');
+const selectedApiKey = ref<string>('');
+const symbol = ref<string>('');
 const countCoin = ref<number>(0);
 const price = ref<number>(0);
 const countOrders = ref<number>(0);
 const step = ref<number>(0);
 const countDecimals = ref<number>(0);
 
-const modalsStore = modals();
-const {isOpenAddPairModal} = storeToRefs(modalsStore);
-const {createCryptoPairGrid} = setSettingsRequests()
+watch(isOpenAddPairModal, () => {
+  if (isOpenAddPairModal.value) {
+    if (selectedPair.value) {
+      symbol.value = selectedPair.value.pair;
+      countCoin.value = selectedPair.value.countCoin;
+      price.value = selectedPair.value.price;
+      countOrders.value = selectedPair.value.countOrders;
+      step.value = selectedPair.value.step;
+      countDecimals.value = selectedPair.value.decimals;
+    }
+  } else {
+    symbol.value = '';
+    countCoin.value = 0;
+    price.value = 0;
+    countOrders.value = 0;
+    step.value = 0;
+    countDecimals.value = 0;
+    changeSelectedPair(null);
+  }
+})
+
 
 function createPair() {
+  const body = {
+    adApi: selectedApiKey.value,
+    params: {
+      symbol: symbol.value,
+      qty: countCoin.value,
+      price: price.value,
+      side: 'BUY',
+      qtyOpenOrders: countOrders.value,
+      step: step.value,
+      decimals: countDecimals.value
+    }
+  }
+  createCryptoPairGrid(body)
+}
 
-  createCryptoPairGrid()
+function seeAlreadyCreatedPairs() {
+  toggleOpenAddPairModal(false);
+  toggleOpenAlreadyCreatedPair(true);
 }
 </script>
 
@@ -119,6 +179,10 @@ function createPair() {
     background-color: var(--secondary-dark);
     border: 2px solid var(--dark-blue);
 
+    .wrapper-api-keys {
+
+    }
+
     .wrapper-parameter {
       p {
         color: var(--white);
@@ -133,6 +197,21 @@ function createPair() {
 
       &:hover {
         background-color: var(--dark-blue);
+      }
+    }
+
+    .wrapper-already-create-pair {
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        color: var(--primary-blue);
+        transition: all 0.2s;
+        text-decoration: underline;
+
+        &:hover {
+          color: var(--dark-blue);
+        }
       }
     }
   }

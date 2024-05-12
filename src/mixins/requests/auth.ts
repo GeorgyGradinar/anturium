@@ -47,10 +47,10 @@ export default function auth() {
   }
 
   function getPersonInfo() {
-    axios.get(`${MAIN_URL}/auth/user`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.authorization]))
-      .then(response => {
-        changePerson(response.data.data);
-      })
+    // axios.get(`${MAIN_URL}/auth/user`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.authorization]))
+    //   .then(response => {
+    //     changePerson(response.data.data);
+    //   })
   }
 
   return {

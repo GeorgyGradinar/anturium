@@ -12,19 +12,9 @@ export default function setSettingsRequests() {
       })
   }
 
-  function createCryptoPairGrid() {
-    const body = {
-      "idApi": "662f534a07d1e0b361902742",
-      "params": {
-        "symbol": "ETHUSDT",
-        "qty": 0.06,
-        "price": 0,
-        "side": "BUY",
-        "qtyOpenOrders": 15,
-        "step": 4,
-        "decimals": 3
-      }
-    }
+  function createCryptoPairGrid(body) {
+    console.log(body)
+
     axios.post(`${MAIN_URL}/gridBot/create`, body, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
         console.log(response)
