@@ -36,9 +36,12 @@ export default function botRequests() {
   }
 
   function stopWatching(symbol: string) {
-    axios.delete(`${MAIN_URL}/gridBot/watching`, {params:{symbol} },
-        getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization])
- )
+    axios.delete(`${MAIN_URL}/gridBot/watching`,
+      {
+        ...getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]),
+        data: {symbol}
+      }
+    )
       .then(response => {
         changeAllPairs(response.data.data);
       })
