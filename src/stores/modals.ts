@@ -13,19 +13,19 @@ export const modals = defineStore('modalsStore', () => {
     isOpenTypeOfBots.value = false;
   }
 
-  function toggleOpenAddPairModal(isOpen) {
+  function toggleOpenAddPairModal(isOpen : boolean) {
     isOpenAddPairModal.value = isOpen;
   }
 
-  function toggleOpenAddApiKeyModal(isOpen) {
+  function toggleOpenAddApiKeyModal(isOpen :boolean) {
     isOpenAddApiKeyModal.value = isOpen;
   }
 
-  function toggleOpenTypeOfBots(isOpen) {
+  function toggleOpenTypeOfBots(isOpen : boolean) {
     isOpenTypeOfBots.value = isOpen;
   }
 
-  function toggleOpenAlreadyCreatedPair(isOpen) {
+  function toggleOpenAlreadyCreatedPair(isOpen : boolean) {
     isOpenAlreadyCreatedPairs.value = isOpen;
   }
 

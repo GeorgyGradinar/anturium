@@ -20,6 +20,7 @@
 import {toRefs} from "vue";
 import FirstBlock from "@/components/main/OrderElement/FirstBlock.vue";
 import PnlBlock from "@/components/main/OrderElement/PnlBlock.vue";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import MarginBlock from "@/components/main/OrderElement/MarginBlock.vue";
 import PriceInfo from "@/components/main/OrderElement/PriceInfo.vue";
 

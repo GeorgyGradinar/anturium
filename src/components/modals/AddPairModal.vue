@@ -124,12 +124,12 @@ const countDecimals = ref<number>(0);
 watch(isOpenAddPairModal, () => {
   if (isOpenAddPairModal.value) {
     if (selectedPair.value) {
-      symbol.value = selectedPair.value.pair;
-      countCoin.value = selectedPair.value.countCoin;
-      price.value = selectedPair.value.price;
-      countOrders.value = selectedPair.value.countOrders;
-      step.value = selectedPair.value.step;
-      countDecimals.value = selectedPair.value.decimals;
+      symbol.value = selectedPair.value?.pair;
+      countCoin.value = selectedPair.value?.countCoin;
+      price.value = selectedPair.value?.price;
+      countOrders.value = selectedPair.value?.countOrders;
+      step.value = selectedPair.value?.step;
+      countDecimals.value = selectedPair.value?.decimals;
     }
   } else {
     symbol.value = '';

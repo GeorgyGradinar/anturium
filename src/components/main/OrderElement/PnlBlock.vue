@@ -21,7 +21,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {toRefs} from "vue";
 
 const props = defineProps({

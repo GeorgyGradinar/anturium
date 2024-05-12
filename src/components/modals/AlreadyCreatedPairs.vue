@@ -6,7 +6,7 @@
       transition="dialog-bottom-transition"
   >
     <div class="content">
-      <div class="pair" v-for="pair in alreadySelectedPair" :key="pair.id">
+      <div class="pair" v-for="pair in alreadySelectedPair">
         <p>Пара: <span>{{ pair.pair }}</span></p>
         <p>Количество монет: <span>{{ pair.countCoin }}</span></p>
         <p>Прайс покупки: <span>{{ pair.price }}</span></p>
@@ -34,7 +34,7 @@ const modalsStore = modals();
 const {toggleOpenAlreadyCreatedPair, toggleOpenAddPairModal} = modalsStore;
 const {isOpenAlreadyCreatedPairs} = storeToRefs(modalsStore);
 
-function reusePair(pair) {
+function reusePair(pair :any) {
   changeSelectedPair(pair);
   toggleOpenAlreadyCreatedPair(false);
   toggleOpenAddPairModal(true);

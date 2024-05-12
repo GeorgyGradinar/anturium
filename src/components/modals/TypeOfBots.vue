@@ -35,7 +35,7 @@ const {isOpenTypeOfBots} = storeToRefs(modalsStore);
 const pairsStore = pairs()
 const {changeSelectedTypeOfBot} = pairsStore;
 
-function selectType(type) {
+function selectType(type :any) {
   changeSelectedTypeOfBot(type);
   toggleOpenTypeOfBots(false);
   toggleOpenAddPairModal(true);
