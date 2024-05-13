@@ -42,7 +42,7 @@ export default function botRequests() {
   }
 
   function webSocketBotsInfo() {
-    const socket = new WebSocket('ws://anturium.online');
+    const socket = new WebSocket('wss://anturium.online');
     socket.onopen = () => {
       socket.send(JSON.stringify({
         "authorization": personStore.token
