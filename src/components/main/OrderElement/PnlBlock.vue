@@ -9,7 +9,7 @@
       </div>
 
       <p class="roi" :class="{'up' : pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0}">
-        {{ pair?.roi }}
+        {{ countPercent() }}
         <label>%</label>
       </p>
     </div>
@@ -31,6 +31,11 @@ const {pair} = toRefs(props);
 
 function cutUnRealizedProfit(profit: string) {
   return Number(profit).toFixed(2);
+}
+
+function countPercent() {
+  const percentageDifference = (Number(pair?.value?.markPrice) - Number(pair?.value?.entryPrice)) * 100 / Number(pair?.value?.entryPrice)
+ return  (percentageDifference * Number(pair?.value?.leverage)).toFixed(2);
 }
 
 </script>

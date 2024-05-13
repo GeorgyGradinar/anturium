@@ -1,30 +1,32 @@
 <template>
   <div class="order"
-       :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0}">
+       :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0, 'change': activeChangeAnimation }">
     <FirstBlock :pair="pair"></FirstBlock>
     <PnlBlock :pair="pair"></PnlBlock>
     <!--    <MarginBlock :pair="pair"></MarginBlock>-->
     <PriceInfo :pair="pair"></PriceInfo>
 
     <div class="wrapper-buttons">
-      <button class="stop-spy" @click="stopWatching(pair?.symbol)">Остановить бот</button>
+      <button class="stop-spy" @click="stopWatching(pair?.symbol, 'PAUSE')">Остановить бот</button>
       <button class="take-profit"
-              @click="takeProfit(pair?.symbol, api?.id)"
+              @click="prepareForTakingProfit(pair?.symbol, api?.id)"
               :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0}">
         Собрать профит
       </button>
-  </div>
+    </div>
+    <LoaderBoxis :isShow="activeMainLoader" :isRedColor="pair?.unRealizedProfit < 0"></LoaderBoxis>
   </div>
 </template>
 
 <script setup lang="ts">
-import {toRefs} from "vue";
+import {ref, toRefs, watch} from "vue";
 import FirstBlock from "@/components/main/OrderElement/FirstBlock.vue";
 import PnlBlock from "@/components/main/OrderElement/PnlBlock.vue";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import MarginBlock from "@/components/main/OrderElement/MarginBlock.vue";
 import PriceInfo from "@/components/main/OrderElement/PriceInfo.vue";
 import botRequests from "@/mixins/requests/bot/botRequests";
+import LoaderBoxis from "@/components/main/OrderElement/loaderBoxis.vue";
 
 const props = defineProps({
   pair: Object,
@@ -33,7 +35,30 @@ const props = defineProps({
 const {pair, api} = toRefs(props);
 const {takeProfit, stopWatching} = botRequests();
 
+const activeChangeAnimation = ref<boolean>(false);
+const activeMainLoader = ref<boolean>(false);
 
+watch(pair, (newVal: any, oldValue: any) => {
+  if (newVal.unRealizedProfit !== oldValue.unRealizedProfit) {
+    toggleActiveChangeAnimation();
+  }
+})
+
+function toggleActiveChangeAnimation() {
+  activeChangeAnimation.value = true;
+
+  setTimeout(() => {
+    activeChangeAnimation.value = false;
+  }, 300)
+}
+
+function prepareForTakingProfit(symbol: string, id: string) {
+  activeMainLoader.value = true;
+  takeProfit(symbol, id)
+      .then(() => {
+        activeMainLoader.value = false;
+      })
+}
 
 </script>
 
@@ -41,6 +66,7 @@ const {takeProfit, stopWatching} = botRequests();
 @import "src/theme/buttons.css";
 
 .order {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -48,15 +74,25 @@ const {takeProfit, stopWatching} = botRequests();
   padding: 20px;
   background-color: var(--light-dark);
   border-radius: 10px;
+  opacity: 1;
+  transition: all 0.7s;
 
   &.up {
     border: 2px solid var(--primary-green);
     background-color: var(--light-green);
+
+    &.change {
+      opacity: 0.2;
+    }
   }
 
   &.down {
     border: 2px solid var(--red);
     background-color: var(--light-red);
+
+    &.change {
+      opacity: 0.3;
+    }
   }
 
   h4 {

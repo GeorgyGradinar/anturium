@@ -26,22 +26,16 @@ export default function botRequests() {
   }
 
   function takeProfit(symbol: string, apiId: string | undefined) {
-    axios.post(`${MAIN_URL}/gridBot/takeProfit`, {symbol, apiId},
+    return axios.post(`${MAIN_URL}/gridBot/takeProfit`, {symbol, apiId},
       getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
-        if (response.data.success) {
-          // getAllCryptoPairs();
-        }
+        return response
       })
   }
 
-  function stopWatching(symbol: string) {
-    axios.delete(`${MAIN_URL}/gridBot/watching`,
-      {
-        ...getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]),
-        data: {symbol}
-      }
-    )
+  function stopWatching(symbol: string, status: string) {
+    axios.put(`${MAIN_URL}/gridBot/watching`, {symbol, status},
+      getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
         changeAllPairs(response.data.data);
       })
