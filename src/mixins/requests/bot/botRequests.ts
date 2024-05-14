@@ -4,6 +4,7 @@ import getHeaders from "@/mixins/requests/getHeaders";
 import {pairs} from "@/stores/pairs";
 import {storeToRefs} from "pinia";
 import {personsStore} from "@/stores/person";
+import {StatusWatchingBot} from "@/const/const";
 
 export default function botRequests() {
 
@@ -33,11 +34,11 @@ export default function botRequests() {
       })
   }
 
-  function stopWatching(symbol: string, status: string) {
+  function changeWatching(symbol: string, status: StatusWatchingBot) {
     axios.put(`${MAIN_URL}/gridBot/watching`, {symbol, status},
       getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
-        changeAllPairs(response.data.data);
+        // changeAllPairs(response.data.data);
       })
   }
 
@@ -62,7 +63,7 @@ export default function botRequests() {
     getAllCryptoPairs,
     getAllCryptoPairsGrid,
     takeProfit,
-    stopWatching,
+    changeWatching,
     webSocketBotsInfo
   }
 }

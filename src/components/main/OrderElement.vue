@@ -7,7 +7,8 @@
     <PriceInfo :pair="pair"></PriceInfo>
 
     <div class="wrapper-buttons">
-      <button class="stop-spy" @click="stopWatching(pair?.symbol, 'PAUSE')">Остановить бот</button>
+      <button v-if="pair?.isActive" class="stop-spy" @click="changeWatching(pair?.symbol, StatusWatchingBot.pause)">Остановить бот</button>
+      <button v-else class="start-spy" @click="changeWatching(pair?.symbol, StatusWatchingBot.start)">Возобновить бота</button>
       <button class="take-profit"
               @click="prepareForTakingProfit(pair?.symbol, api?.id)"
               :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0}">
@@ -27,13 +28,14 @@ import MarginBlock from "@/components/main/OrderElement/MarginBlock.vue";
 import PriceInfo from "@/components/main/OrderElement/PriceInfo.vue";
 import botRequests from "@/mixins/requests/bot/botRequests";
 import LoaderBoxis from "@/components/main/OrderElement/loaderBoxis.vue";
+import {StatusWatchingBot} from "@/const/const";
 
 const props = defineProps({
   pair: Object,
   api: Object
 })
 const {pair, api} = toRefs(props);
-const {takeProfit, stopWatching} = botRequests();
+const {takeProfit, changeWatching} = botRequests();
 
 const activeChangeAnimation = ref<boolean>(false);
 const activeMainLoader = ref<boolean>(false);
@@ -138,6 +140,18 @@ function prepareForTakingProfit(symbol: string, id: string) {
       }
     }
 
+    .start-spy {
+      color: var(--primary-green);
+      border: 1px solid var(--primary);
+      padding: 5px 10px;
+      transition: all 0.2s;
+
+      &:hover {
+        border: 1px solid var(--primary-green);
+        background-color: var(--primary);
+      }
+    }
+
     .stop-spy {
       color: var(--primary-orange);
       border: 1px solid var(--light-orange);
@@ -147,7 +161,6 @@ function prepareForTakingProfit(symbol: string, id: string) {
       &:hover {
         border: 1px solid var(--primary-orange);
         background-color: var(--light-orange);
-
       }
     }
   }
