@@ -72,6 +72,7 @@ export const pairs = defineStore('pairsStore', () => {
     },
   ]);
   const selectedPair = <any>ref(null);
+  const isLoadingCreateGridBot = ref(false);
 
   function clearPairsStore() {
     allPairs.value = null;
@@ -120,6 +121,7 @@ export const pairs = defineStore('pairsStore', () => {
     selectedTypeOfBot, changeSelectedTypeOfBot,
     alreadySelectedPair,
     selectedPair, changeSelectedPair,
-    clearPairsStore
+    clearPairsStore,
+    isLoadingCreateGridBot
   }
 })

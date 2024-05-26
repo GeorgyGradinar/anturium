@@ -5,7 +5,7 @@
       class="add-pair-modal"
       transition="dialog-bottom-transition"
   >
-    <div class="content">
+    <v-form class="content" @submit.prevent="createPair">
 
       <div class="wrapper-api-keys">
         <v-select
@@ -90,13 +90,13 @@
         </v-text-field>
       </div>
 
-      <button class="create-pair" @click="createPair">Создать</button>
+      <v-btn class="create-pair" :loading="isLoadingCreateGridBot" type="submit">Создать</v-btn>
 
       <div class="wrapper-already-create-pair">
         <button @click="seeAlreadyCreatedPairs">Посмотреть уже созданные пары</button>
       </div>
 
-    </div>
+    </v-form>
   </v-dialog>
 </template>
 
@@ -110,7 +110,7 @@ import {personsStore} from "@/stores/person";
 
 const pairsStore = pairs();
 const {addNewPair, changeSelectedPair} = pairsStore;
-const {allApiKeys, selectedPair} = storeToRefs(pairsStore);
+const {isLoadingCreateGridBot, selectedPair} = storeToRefs(pairsStore);
 const personStore = personsStore();
 const {person} = storeToRefs(personStore);
 const modalsStore = modals();
@@ -148,13 +148,13 @@ watch(isOpenAddPairModal, () => {
 })
 
 
-function createPair() {
-  createCryptoPairGrid({
+async function createPair() {
+  const createdGridBotResponse = await createCryptoPairGrid({
     idApi: selectedApiKey.value?._id,
     params: {
       symbol: symbol.value,
       qty: countCoin.value,
-      // price: price.value,
+      price: price.value,
       side: 'BUY',
       qtyOpenOrders: countOrders.value,
       step: step.value,
@@ -162,7 +162,10 @@ function createPair() {
       strategy: "MARTINGALE",
       marginType: "CROSSED",
       stepRevers: 10
-    },})
+    },
+  })
+
+  if (createdGridBotResponse.data.success) isOpenAddPairModal.value = false;
 }
 
 function seeAlreadyCreatedPairs() {
@@ -184,6 +187,7 @@ function seeAlreadyCreatedPairs() {
     padding: 30px;
     background-color: var(--secondary-dark);
     border: 2px solid var(--dark-blue);
+    overflow: auto;
 
     .wrapper-api-keys {
 
@@ -200,6 +204,7 @@ function seeAlreadyCreatedPairs() {
       color: var(--white);
       padding: 10px;
       transition: all 0.2s;
+      --v-theme-surface: transparent;
 
       &:hover {
         background-color: var(--dark-blue);
