@@ -1,78 +1,14 @@
 import {defineStore} from "pinia";
-import {ref} from "vue";
+import {Ref, ref, UnwrapRef} from "vue";
 
 export const pairs = defineStore('pairsStore', () => {
   const allPairs = <any>ref(null);
   const allApiKeys = ref(['kfdjdnvjkf435345', 'sdjfsdf345kj353']);
   const selectedTypeOfBot = ref<string | null>(null);
-  const alreadySelectedPair = ref([
-    {
-      pair: 'ARBUSEDT',
-      countCoin: 25,
-      price: 1.2,
-      countOrders: 19,
-      step: 1,
-      decimals: 2
-    },
-    {
-      pair: 'ARBUSEDT',
-      countCoin: 25,
-      price: 1.2,
-      countOrders: 19,
-      step: 1,
-      decimals: 2
-    },
-    {
-      pair: 'ARBUSEDT',
-      countCoin: 25,
-      price: 1.2,
-      countOrders: 19,
-      step: 1,
-      decimals: 2
-    },
-    {
-      pair: 'ARBUSEDT',
-      countCoin: 25,
-      price: 1.2,
-      countOrders: 19,
-      step: 1,
-      decimals: 2
-    },
-    {
-      pair: 'ARBUSEDT',
-      countCoin: 25,
-      price: 1.2,
-      countOrders: 19,
-      step: 1,
-      decimals: 2
-    },
-    {
-      pair: 'ARBUSEDT',
-      countCoin: 25,
-      price: 1.2,
-      countOrders: 19,
-      step: 1,
-      decimals: 2
-    },
-    {
-      pair: 'ARBUSEDT',
-      countCoin: 25,
-      price: 1.2,
-      countOrders: 19,
-      step: 1,
-      decimals: 2
-    },
-    {
-      pair: 'ARBUSEDT',
-      countCoin: 25,
-      price: 1.2,
-      countOrders: 19,
-      step: 1,
-      decimals: 2
-    },
-  ]);
+  const alreadySelectedPair: Ref<UnwrapRef<GridBot.AlreadySelectedPair[]>> = ref([]);
   const selectedPair = <any>ref(null);
   const isLoadingCreateGridBot = ref(false);
+  const isAlreadySelectedPair = ref(false);
 
   function clearPairsStore() {
     allPairs.value = null;
@@ -122,6 +58,7 @@ export const pairs = defineStore('pairsStore', () => {
     alreadySelectedPair,
     selectedPair, changeSelectedPair,
     clearPairsStore,
-    isLoadingCreateGridBot
+    isLoadingCreateGridBot,
+    isAlreadySelectedPair
   }
 })

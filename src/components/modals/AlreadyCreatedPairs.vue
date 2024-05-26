@@ -6,17 +6,20 @@
       transition="dialog-bottom-transition"
   >
     <div class="content">
-      <div class="pair" v-for="pair in alreadySelectedPair">
-        <p>Пара: <span>{{ pair.pair }}</span></p>
-        <p>Количество монет: <span>{{ pair.countCoin }}</span></p>
-        <p>Прайс покупки: <span>{{ pair.price }}</span></p>
-        <p>Количество ордеров: <span>{{ pair.countOrders }}</span></p>
-        <p>Шаг в %: <span>{{ pair.step }}</span></p>
-        <p>Decimals: <span>{{ pair.decimals }}</span></p>
+      <template v-if="!isAlreadySelectedPair">
+        <div class="pair" :key="pair.params.symbol" v-for="pair in alreadySelectedPair">
+          <p>Пара: <span>{{ pair.params.symbol }}</span></p>
+          <p>Количество монет: <span>{{ pair.params.qty }}</span></p>
+          <p>Прайс покупки: <span>{{ pair.params.price }}</span></p>
+          <p>Количество ордеров: <span>{{ pair.params.qtyOpenOrders }}</span></p>
+          <p>Шаг в %: <span>{{ pair.params.step }}</span></p>
+          <p>Decimals: <span>{{ pair.params.decimals }}</span></p>
 
-        <button class="primary-button reuse" @click="reusePair(pair)">Использовать</button>
-        <button class="primary-button delete">Удалить</button>
-      </div>
+          <button class="primary-button reuse" @click="reusePair(pair)">Использовать</button>
+          <button class="primary-button delete">Удалить</button>
+        </div>
+      </template>
+      <p v-else>Loading...</p>
     </div>
   </v-dialog>
 </template>
@@ -27,14 +30,14 @@ import {storeToRefs} from "pinia";
 import {pairs} from "@/stores/pairs";
 
 const pairsStore = pairs();
-const {addNewPair, changeSelectedPair} = pairsStore;
-const {alreadySelectedPair} = storeToRefs(pairsStore);
+const {changeSelectedPair} = pairsStore;
+const {alreadySelectedPair, isAlreadySelectedPair} = storeToRefs(pairsStore);
 
 const modalsStore = modals();
 const {toggleOpenAlreadyCreatedPair, toggleOpenAddPairModal} = modalsStore;
 const {isOpenAlreadyCreatedPairs} = storeToRefs(modalsStore);
 
-function reusePair(pair :any) {
+function reusePair(pair: any) {
   changeSelectedPair(pair);
   toggleOpenAlreadyCreatedPair(false);
   toggleOpenAddPairModal(true);

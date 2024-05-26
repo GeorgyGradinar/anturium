@@ -93,7 +93,7 @@
       <v-btn class="create-pair" :loading="isLoadingCreateGridBot" type="submit">Создать</v-btn>
 
       <div class="wrapper-already-create-pair">
-        <button @click="seeAlreadyCreatedPairs">Посмотреть уже созданные пары</button>
+        <button @click.prevent="seeAlreadyCreatedPairs">Посмотреть уже созданные пары</button>
       </div>
 
     </v-form>
@@ -107,9 +107,10 @@ import {ref, watch} from "vue";
 import {pairs} from "@/stores/pairs";
 import setSettingsRequests from "@/mixins/requests/bot/setSettingsRequests";
 import {personsStore} from "@/stores/person";
+import gridBotHistory from "@/mixins/requests/bot/gridBotHistory";
 
 const pairsStore = pairs();
-const {addNewPair, changeSelectedPair} = pairsStore;
+const {changeSelectedPair} = pairsStore;
 const {isLoadingCreateGridBot, selectedPair} = storeToRefs(pairsStore);
 const personStore = personsStore();
 const {person} = storeToRefs(personStore);
@@ -117,6 +118,7 @@ const modalsStore = modals();
 const {toggleOpenAlreadyCreatedPair, toggleOpenAddPairModal} = modalsStore;
 const {isOpenAddPairModal} = storeToRefs(modalsStore);
 const {createCryptoPairGrid} = setSettingsRequests()
+const {requestHistoryCreatedGridBots} = gridBotHistory()
 
 const selectedApiKey = ref<any>('');
 const symbol = ref<string>('');
@@ -169,6 +171,7 @@ async function createPair() {
 }
 
 function seeAlreadyCreatedPairs() {
+  requestHistoryCreatedGridBots();
   toggleOpenAddPairModal(false);
   toggleOpenAlreadyCreatedPair(true);
 }
