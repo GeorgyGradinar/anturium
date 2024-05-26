@@ -7,19 +7,20 @@
   >
     <div class="content">
       <template v-if="!isAlreadySelectedPair">
-        <div class="pair" :key="pair.params.symbol" v-for="pair in alreadySelectedPair">
-          <p>Пара: <span>{{ pair.params.symbol }}</span></p>
-          <p>Количество монет: <span>{{ pair.params.qty }}</span></p>
-          <p>Прайс покупки: <span>{{ pair.params.price }}</span></p>
-          <p>Количество ордеров: <span>{{ pair.params.qtyOpenOrders }}</span></p>
-          <p>Шаг в %: <span>{{ pair.params.step }}</span></p>
-          <p>Decimals: <span>{{ pair.params.decimals }}</span></p>
+        <div class="pair" v-for="pair in alreadySelectedPair" :key="pair.params?.symbol">
+          <p>Пара: <span>{{ pair.params?.symbol }}</span></p>
+          <p>Количество монет: <span>{{ pair.params?.qty }}</span></p>
+          <p>Прайс покупки: <span>{{ pair.params?.price }}</span></p>
+          <p>Количество ордеров: <span>{{ pair.params?.qtyOpenOrders }}</span></p>
+          <p>Шаг в %: <span>{{ pair.params?.step }}</span></p>
+          <p>Decimals: <span>{{ pair.params?.decimals }}</span></p>
 
           <button class="primary-button reuse" @click="reusePair(pair)">Использовать</button>
           <button class="primary-button delete">Удалить</button>
         </div>
       </template>
-      <p v-else>Loading...</p>
+      <p v-if="isAlreadySelectedPair">Loading...</p>
+      <p v-if="!alreadySelectedPair.length">У вас нет ранее созданых пар</p>
     </div>
   </v-dialog>
 </template>
