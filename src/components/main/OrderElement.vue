@@ -7,8 +7,8 @@
     <PriceInfo :pair="pair"></PriceInfo>
 
     <div class="wrapper-buttons">
-      <button v-if="pair?.isActive" class="stop-spy" @click="changeWatching(pair?.symbol, StatusWatchingBot.pause)">Остановить бот</button>
-      <button v-else class="start-spy" @click="changeWatching(pair?.symbol, StatusWatchingBot.start)">Возобновить бота</button>
+      <button v-if="pair?.isActive" class="stop-spy" @click="changeWatching(pair?.symbol, StatusWatchingBot.pause, api?.id)">Остановить бот</button>
+      <button v-else class="start-spy" @click="changeWatching(pair?.symbol, StatusWatchingBot.start, api?.id)">Возобновить бота</button>
       <button class="take-profit"
               @click="prepareForTakingProfit(pair?.symbol, api?.id)"
               :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0}">

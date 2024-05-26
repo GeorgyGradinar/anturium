@@ -34,8 +34,8 @@ export default function botRequests() {
       })
   }
 
-  function changeWatching(symbol: string, status: StatusWatchingBot) {
-    axios.put(`${MAIN_URL}/gridBot/watching`, {symbol, status},
+  function changeWatching(symbol: string, status: StatusWatchingBot, apiId: string) {
+    axios.put(`${MAIN_URL}/gridBot/watching`, {symbol, status, apiId},
       getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
         // changeAllPairs(response.data.data);
