@@ -60,7 +60,6 @@ export default function botRequests() {
   }
 
   return {
-    getAllCryptoPairs,
     getAllCryptoPairsGrid,
     takeProfit,
     changeWatching,

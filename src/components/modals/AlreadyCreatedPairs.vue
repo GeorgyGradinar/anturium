@@ -15,8 +15,8 @@
           <p>Шаг в %: <span>{{ pair.params.step }}</span></p>
           <p>Decimals: <span>{{ pair.params.decimals }}</span></p>
 
-          <button class="primary-button reuse" @click="reusePair(pair)">Использовать</button>
-          <button class="primary-button delete">Удалить</button>
+          <v-btn class="primary-button reuse" @click="reusePair(pair)">Использовать</v-btn>
+          <v-btn class="primary-button delete" :loading="historyGridBot.isDeletePair.value" @click="deletePair(pair._id)">Удалить</v-btn>
         </div>
       </template>
       <p v-else>Loading...</p>
@@ -28,10 +28,12 @@
 import {modals} from "@/stores/modals";
 import {storeToRefs} from "pinia";
 import {pairs} from "@/stores/pairs";
+import gridBotHistory from "@/mixins/requests/bot/gridBotHistory";
 
 const pairsStore = pairs();
 const {changeSelectedPair} = pairsStore;
 const {alreadySelectedPair, isAlreadySelectedPair} = storeToRefs(pairsStore);
+const historyGridBot = gridBotHistory();
 
 const modalsStore = modals();
 const {toggleOpenAlreadyCreatedPair, toggleOpenAddPairModal} = modalsStore;
@@ -41,6 +43,11 @@ function reusePair(pair: any) {
   changeSelectedPair(pair);
   toggleOpenAlreadyCreatedPair(false);
   toggleOpenAddPairModal(true);
+}
+
+async function deletePair(id: string): Promise<void> {
+  await historyGridBot.deletePair(id);
+  await historyGridBot.requestHistoryCreatedGridBots();
 }
 </script>
 
@@ -77,6 +84,7 @@ function reusePair(pair: any) {
 
       .reuse {
         border: 1px solid var(--primary-blue);
+        --v-theme-surface: transparent;
 
         &:hover {
           background-color: var(--dark-blue);
@@ -86,6 +94,7 @@ function reusePair(pair: any) {
       .delete {
         border: 1px solid var(--red);
         color: var(--red);
+        --v-theme-surface: transparent;
 
         &:hover {
           background-color: var(--light-red);
