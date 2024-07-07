@@ -130,13 +130,14 @@ const countDecimals = ref<number>(0);
 
 watch(isOpenAddPairModal, () => {
   if (isOpenAddPairModal.value) {
+    console.log(selectedPair.value)
     if (selectedPair.value) {
-      symbol.value = selectedPair.value?.pair;
-      countCoin.value = selectedPair.value?.countCoin;
-      price.value = selectedPair.value?.price;
-      countOrders.value = selectedPair.value?.countOrders;
-      step.value = selectedPair.value?.step;
-      countDecimals.value = selectedPair.value?.decimals;
+      symbol.value = selectedPair.value?.params.symbol;
+      countCoin.value = selectedPair.value?.params.qty;
+      price.value = selectedPair.value?.params.price || 0;
+      countOrders.value = selectedPair.value?.params.qtyOpenOrders;
+      step.value = selectedPair.value?.params.step;
+      countDecimals.value = selectedPair.value?.params.decimals;
     }
   } else {
     symbol.value = '';
@@ -148,7 +149,6 @@ watch(isOpenAddPairModal, () => {
     changeSelectedPair(null);
   }
 })
-
 
 async function createPair() {
   const createdGridBotResponse = await createCryptoPairGrid({

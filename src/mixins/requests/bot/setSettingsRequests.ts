@@ -4,10 +4,13 @@ import getHeaders from "@/mixins/requests/getHeaders";
 import {IAddApiKey} from "@/interfaces/settings";
 import {pairs} from "@/stores/pairs";
 import {storeToRefs} from "pinia";
+import botRequests from "@/mixins/requests/bot/botRequests";
 
 export default function setSettingsRequests() {
     const pairsStore = pairs();
     const {isLoadingCreateGridBot} = storeToRefs(pairsStore);
+
+    const {getAllCryptoPairsGrid} = botRequests();
 
     function addApiKey(body: IAddApiKey) {
     axios.post(`${MAIN_URL}/user/api`, body, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
@@ -20,8 +23,8 @@ export default function setSettingsRequests() {
       isLoadingCreateGridBot.value = true;
       return await axios.post(`${MAIN_URL}/gridBot/create`, body, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
           .then(response => {
-              console.log(response)
               isLoadingCreateGridBot.value = false;
+            getAllCryptoPairsGrid();
               return response
           })
   }

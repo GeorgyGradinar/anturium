@@ -1,11 +1,13 @@
 <template>
   <header>
-    <button class="logout">Выйти</button>
+    <button class="logout" @click="prepareForLogout">Выйти</button>
   </header>
 </template>
 
 <script setup lang="ts">
+import shared from "@/mixins/shared";
 
+const {prepareForLogout} = shared();
 </script>
 
 <style scoped lang="scss">

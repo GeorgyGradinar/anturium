@@ -39,6 +39,7 @@ export default function botRequests() {
       getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
         // changeAllPairs(response.data.data);
+        getAllCryptoPairsGrid();
       })
   }
 
