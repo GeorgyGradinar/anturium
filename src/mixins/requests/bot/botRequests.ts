@@ -52,7 +52,9 @@ export default function botRequests() {
     }
 
     socket.onmessage = (event) => {
+      if (event.data === "Connection with server") return;
       const data = JSON.parse(event.data)
+      console.log(data)
       switch (data.type) {
         case "NOTIFICATION_POSITION_RISK":
           changePairsFromWS(data.data);

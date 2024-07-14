@@ -9,6 +9,7 @@ import {useIonRouter} from "@ionic/vue";
 import {useRouter} from "vue-router";
 import {LOGIN, MAIN} from "@/router";
 import botRequests from "@/mixins/requests/bot/botRequests";
+import {pairs} from "@/stores/pairs";
 
 export default function auth() {
   const ionRouter = useIonRouter();
@@ -17,6 +18,8 @@ export default function auth() {
   const personStore = personsStore();
   const {changeToken, changePerson} = personStore;
   const {token} = storeToRefs(personStore);
+  const pairsStore = pairs();
+  const {changeAllApiKeys} = pairsStore;
   const {getLocalStorage} = storage();
   const {webSocketBotsInfo} = botRequests();
 
@@ -52,6 +55,7 @@ export default function auth() {
     axios.get(`${MAIN_URL}/auth/user`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.authorization]))
       .then(response => {
         changePerson(response.data.data);
+        changeAllApiKeys(response.data.data?.apiKeys);
         webSocketBotsInfo();
       })
   }

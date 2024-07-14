@@ -1,6 +1,6 @@
 <template>
   <div class="order"
-       :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0, 'change': activeChangeAnimation }">
+       :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit <= 0, 'change': activeChangeAnimation }">
     <FirstBlock :pair="pair"></FirstBlock>
     <PnlBlock :pair="pair"></PnlBlock>
     <!--    <MarginBlock :pair="pair"></MarginBlock>-->
@@ -11,15 +11,15 @@
       <button v-else class="start-spy" @click="changeWatching(pair?.symbol, StatusWatchingBot.start, api?.id)">Возобновить бота</button>
       <button class="take-profit"
               @click="prepareForTakingProfit(pair?.symbol, api?.id)"
-              :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0}">
+              :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit <= 0}">
         Собрать профит
       </button>
       <button class="take-profit" v-if="!pair?.isActive"
               @click="changeWatching(pair?.symbol, StatusWatchingBot.stop, api?.id)"
-              :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit < 0}">Закрыть бота
+              :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit <= 0}">Закрыть бота
       </button>
     </div>
-    <LoaderBoxis :isShow="activeMainLoader" :isRedColor="pair?.unRealizedProfit < 0"></LoaderBoxis>
+    <LoaderBoxis :isShow="activeMainLoader" :isRedColor="pair?.unRealizedProfit <= 0"></LoaderBoxis>
   </div>
 </template>
 

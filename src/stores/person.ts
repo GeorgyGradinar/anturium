@@ -17,6 +17,7 @@ export const personsStore = defineStore('personStore', () => {
 
   function changePerson(data: any) {
     person.value = data;
+    console.log(person.value)
   }
 
   function changeToken(newToken: string) {

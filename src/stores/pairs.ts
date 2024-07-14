@@ -3,7 +3,7 @@ import {Ref, ref, UnwrapRef} from "vue";
 
 export const pairs = defineStore('pairsStore', () => {
   const allPairs = <any>ref(null);
-  const allApiKeys = ref(['kfdjdnvjkf435345', 'sdjfsdf345kj353']);
+  const allApiKeys = ref(null);
   const selectedTypeOfBot = ref<string | null>(null);
   const alreadySelectedPair: Ref<UnwrapRef<GridBot.AlreadySelectedPair[]>> = ref([]);
   const selectedPair = <any>ref(null);
@@ -39,6 +39,10 @@ export const pairs = defineStore('pairsStore', () => {
     })
   }
 
+  function changeAllApiKeys(newData) {
+    allApiKeys.value = newData;
+  }
+
   function addNewPair(newPair: any) {
     allPairs.value.push(newPair);
   }
@@ -53,7 +57,7 @@ export const pairs = defineStore('pairsStore', () => {
 
   return {
     allPairs, addNewPair, changeAllPairs, changePairsFromWS,
-    allApiKeys,
+    allApiKeys, changeAllApiKeys,
     selectedTypeOfBot, changeSelectedTypeOfBot,
     alreadySelectedPair,
     selectedPair, changeSelectedPair,
