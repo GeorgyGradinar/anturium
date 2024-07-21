@@ -1,4 +1,4 @@
-export const MAIN_URL = 'https://anturium.online';
+export const MAIN_URL = 'https://dev.anturium.online';
 export const ANTURIUM_STORE_KEY = 'anutium_key';
 
 export const HEADER_PARAMETERS = {
