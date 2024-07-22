@@ -41,7 +41,7 @@ export const pairs = defineStore('pairsStore', () => {
     })
   }
 
-  function changeAllApiKeys(newData) {
+  function changeAllApiKeys(newData: any) {
     allApiKeys.value = newData;
   }
 

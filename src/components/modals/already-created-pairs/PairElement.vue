@@ -1,5 +1,5 @@
 <template>
-  <div class="pair">
+  <div class="pair" v-if="pair">
     <p>Пара: <span>{{ pair.params?.symbol }}</span></p>
     <p>Количество монет: <span>{{ pair.params?.qty }}</span></p>
     <p>Прайс покупки: <span>{{ pair.params?.price }}</span></p>
