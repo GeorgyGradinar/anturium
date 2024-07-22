@@ -25,7 +25,7 @@ export const pairs = defineStore('pairsStore', () => {
     allPairs.value.forEach((apiData: any) => {
       if (apiData.api.id === data.api.id) {
         data.positionsRisk.forEach((pairWS: any) => {
-          apiData.positionsRisk.find((pair: any) => {
+          const positionInfo = apiData.positionsRisk.find((pair: any) => {
             if (pairWS.symbol === pair.positionRisk.symbol) {
               pair.positionRisk = {
                 ...pair.positionRisk,
@@ -34,6 +34,8 @@ export const pairs = defineStore('pairsStore', () => {
               return
             }
           })
+
+          console.log(positionInfo)
         })
       }
     })

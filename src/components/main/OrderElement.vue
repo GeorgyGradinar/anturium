@@ -7,15 +7,19 @@
     <PriceInfo :pair="pair"></PriceInfo>
 
     <div class="wrapper-buttons">
-      <button v-if="pair?.isActive" class="stop-spy" @click="changeWatching(pair?.symbol, StatusWatchingBot.pause, api?.id)">Остановить бота</button>
-      <button v-else class="start-spy" @click="changeWatching(pair?.symbol, StatusWatchingBot.start, api?.id)">Возобновить бота</button>
+      <button v-if="pair?.isActive" class="stop-spy"
+              @click="prepareForChangeWatching(pair?.symbol, StatusWatchingBot.pause, api?.id)">Остановить бота
+      </button>
+      <button v-else class="start-spy" @click="prepareForChangeWatching(pair?.symbol, StatusWatchingBot.start, api?.id)">
+        Возобновить бота
+      </button>
       <button class="take-profit"
               @click="prepareForTakingProfit(pair?.symbol, api?.id)"
               :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit <= 0}">
         Собрать профит
       </button>
       <button class="take-profit" v-if="!pair?.isActive"
-              @click="changeWatching(pair?.symbol, StatusWatchingBot.stop, api?.id)"
+              @click="prepareForChangeWatching(pair?.symbol, StatusWatchingBot.stop, api?.id)"
               :class="{'up': pair?.unRealizedProfit > 0, 'down': pair?.unRealizedProfit <= 0}">Закрыть бота
       </button>
     </div>
@@ -46,6 +50,7 @@ const activeMainLoader = ref<boolean>(false);
 
 watch(pair, (newVal: any, oldValue: any) => {
   if (newVal.unRealizedProfit !== oldValue.unRealizedProfit) {
+    activeMainLoader.value = false;
     toggleActiveChangeAnimation();
   }
 })
@@ -60,12 +65,13 @@ function toggleActiveChangeAnimation() {
 
 function prepareForTakingProfit(symbol: string, id: string) {
   activeMainLoader.value = true;
-  takeProfit(symbol, id)
-      .then(() => {
-        activeMainLoader.value = false;
-      })
+  takeProfit(symbol, id);
 }
 
+function prepareForChangeWatching(symbol: string, status: StatusWatchingBot, apiId: string) {
+  activeMainLoader.value = true;
+  changeWatching(symbol, status, apiId);
+}
 </script>
 
 <style scoped lang="scss">
