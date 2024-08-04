@@ -1,5 +1,5 @@
 <template>
-  <div class="reject-popup">
+  <div class="reject-popup" v-if="popupInfo">
     <p>{{ popupInfo.text }}</p>
     <img src="/public/images/close.svg" @click="emit('closePopup', popupInfo.id)" alt="close">
   </div>

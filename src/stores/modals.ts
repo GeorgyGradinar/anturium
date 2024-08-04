@@ -32,7 +32,7 @@ export const modals = defineStore('modalsStore', () => {
     })
   }
 
-  function deletePopup(id) {
+  function deletePopup(id: number) {
     console.log(id)
     const index = allPopups.value.findIndex((popup: Popups) => popup.id === id);
 
