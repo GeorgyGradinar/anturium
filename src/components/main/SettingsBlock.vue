@@ -2,6 +2,7 @@
   <div class="settings-block">
     <button class="add-pair" @click="toggleOpenTypeOfBots(true)">Создать пару</button>
     <button class="add-pair" @click="toggleOpenAddApiKeyModal(true)">Добавить API key</button>
+    <button class="add-pair" @click="addDonePopup('test')">Добавить</button>
   </div>
 
   <AddPairModal></AddPairModal>
@@ -18,7 +19,7 @@ import TypeOfBots from "@/components/modals/TypeOfBots.vue";
 import AlreadyCreatedPairs from "@/components/modals/AlreadyCreatedPairs.vue";
 
 const modalsStore = modals();
-const {toggleOpenTypeOfBots, toggleOpenAddApiKeyModal} = modalsStore;
+const {toggleOpenTypeOfBots, toggleOpenAddApiKeyModal, addDonePopup} = modalsStore;
 </script>
 
 <style scoped lang="scss">
