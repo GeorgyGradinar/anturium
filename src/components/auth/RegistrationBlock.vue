@@ -21,6 +21,7 @@
           v-model="password"
           label="Password"
           variant="underlined"
+          type="password"
       ></v-text-field>
 
       <!--      <v-text-field-->
