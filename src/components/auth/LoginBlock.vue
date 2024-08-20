@@ -1,6 +1,6 @@
 <template>
       <section class="registration-page">
-        <div class="registration">
+        <v-form class="registration" @submit.prevent="submit">
           <p class="title">Login</p>
 
           <v-text-field
@@ -14,15 +14,16 @@
               v-model="password"
               label="Password"
               color="#ff6b02"
+              type="password"
               variant="underlined"
           ></v-text-field>
 
-          <button class="submit-button" @click="submit">Submit</button>
+          <button class="submit-button" type="submit">Submit</button>
           <div class="propose-registration">
             <p>Если у вас нет аккаунта?</p>
             <button class="submit-button" @click="routeTo">Зарегистрироваться</button>
           </div>
-        </div>
+        </v-form>
       </section>
 </template>
 
@@ -31,17 +32,21 @@ import {ref} from "vue";
 import auth from "@/mixins/requests/auth";
 import {REGISTRATION} from "@/router";
 import { useIonRouter } from '@ionic/vue';
+import {encryptPassword} from "@/unit/unit";
+
 
 const {login} = auth();
 const ionRouter = useIonRouter();
 
 const email = ref<string | null>(null);
-const password = ref<number | null>(null);
+const password = ref<string | null>(null);
 
 function submit() {
+  if (!password.value) return;
+  const loginPassword = encryptPassword(password.value);
   login({
     mail: email.value,
-    password: password.value
+    password: loginPassword
   })
 }
 

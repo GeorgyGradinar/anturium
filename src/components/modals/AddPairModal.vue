@@ -111,7 +111,7 @@ import gridBotHistory from "@/mixins/requests/bot/gridBotHistory";
 
 const pairsStore = pairs();
 const {changeSelectedPair} = pairsStore;
-const {isLoadingCreateGridBot, selectedPair} = storeToRefs(pairsStore);
+const {isLoadingCreateGridBot, selectedPair, selectedTypeOfBot} = storeToRefs(pairsStore);
 const personStore = personsStore();
 const {person} = storeToRefs(personStore);
 const modalsStore = modals();
@@ -161,7 +161,7 @@ async function createPair() {
       qtyOpenOrders: countOrders.value,
       step: step.value,
       decimals: countDecimals.value,
-      strategy: "MARTINGALE",
+      strategy: selectedTypeOfBot.value === 'MARTINGALE' ? "MARTINGALE" : 'DEFAULT',
       marginType: "CROSSED",
       stepRevers: 10
     },

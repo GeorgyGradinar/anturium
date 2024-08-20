@@ -21,6 +21,7 @@
           v-model="password"
           label="Password"
           variant="underlined"
+          type="password"
       ></v-text-field>
 
       <!--      <v-text-field-->
@@ -45,19 +46,21 @@ import {ref} from "vue";
 import auth from "@/mixins/requests/auth.js";
 import {LOGIN} from "@/router";
 import {useIonRouter} from "@ionic/vue";
+import {encryptPassword} from "@/unit/unit";
 
 const ionRouter = useIonRouter();
 const {registration} = auth();
 
 const login = ref<string | null>(null);
 const email = ref<string | null>(null);
-const password = ref<number | null>(null);
+const password = ref<string | null>(null);
 
 function submit() {
+  const passwordEncrypt = encryptPassword(password.value || '');
   registration({
     login: login.value,
     mail: email.value,
-    password: password.value
+    password: passwordEncrypt
   });
 }
 

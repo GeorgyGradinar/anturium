@@ -49,6 +49,7 @@ import {modals} from "@/stores/modals";
 import {storeToRefs} from "pinia";
 import {ref} from "vue";
 import setSettingsRequests from "@/mixins/requests/bot/setSettingsRequests";
+import {encryptAPI} from "@/unit/unit";
 
 const modalsStore = modals();
 const {isOpenAddApiKeyModal} = storeToRefs(modalsStore);
@@ -60,10 +61,11 @@ const secretKey = ref<string | null>(null);
 
 function saveApiKey() {
   if (name.value && publicKey.value && secretKey.value) {
+    const encryptSecretKey = encryptAPI(secretKey.value)
     addApiKey({
       'name': name.value,
       "publicKey": publicKey.value,
-      "secretKey": secretKey.value
+      "secretKey": encryptSecretKey
     });
   }
 

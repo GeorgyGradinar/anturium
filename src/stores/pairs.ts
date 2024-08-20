@@ -34,7 +34,6 @@ export const pairs = defineStore('pairsStore', () => {
               return
             }
           })
-
           console.log(positionInfo)
         })
       }
