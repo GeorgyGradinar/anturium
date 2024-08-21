@@ -14,7 +14,12 @@ import PopupsBlock from "@/components/popups/PopupsBlock.vue";
 const {initStore} = auth();
 
 onMounted(() => {
+
   initStore();
+  console.log(import.meta)
+  console.log(import.meta.env.VITE_API_URL)
+  // const IONIC_API_URL = import.meta.env.VITE_API_BASE_URL
+
 })
 </script>
 

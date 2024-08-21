@@ -21,6 +21,7 @@
     "@ionic/vue-router": "^7.0.0",
     "@mdi/font": "^7.4.47",
     "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
     "ionicons": "^7.0.0",
     "pinia": "^2.1.7",
     "vue": "^3.3.0",

@@ -1,37 +1,37 @@
 <template>
-      <section class="registration-page">
-        <v-form class="registration" @submit.prevent="submit">
-          <p class="title">Login</p>
+  <section class="registration-page">
+    <v-form class="registration" @submit.prevent="submit">
+      <p class="title">Login</p>
 
-          <v-text-field
-              v-model="email"
-              label="Email"
-              color="#ff6b02"
-              variant="underlined"
-          ></v-text-field>
+      <v-text-field
+          v-model="email"
+          label="Email"
+          color="#ff6b02"
+          variant="underlined"
+      ></v-text-field>
 
-          <v-text-field
-              v-model="password"
-              label="Password"
-              color="#ff6b02"
-              type="password"
-              variant="underlined"
-          ></v-text-field>
+      <v-text-field
+          v-model="password"
+          label="Password"
+          color="#ff6b02"
+          type="password"
+          variant="underlined"
+      ></v-text-field>
 
-          <button class="submit-button" type="submit">Submit</button>
-          <div class="propose-registration">
-            <p>Если у вас нет аккаунта?</p>
-            <button class="submit-button" @click="routeTo">Зарегистрироваться</button>
-          </div>
-        </v-form>
-      </section>
+      <button class="submit-button" type="submit">Submit</button>
+      <div class="propose-registration">
+        <p>Если у вас нет аккаунта?</p>
+        <button class="submit-button" @click="routeTo">Зарегистрироваться</button>
+      </div>
+    </v-form>
+  </section>
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import auth from "@/mixins/requests/auth";
 import {REGISTRATION} from "@/router";
-import { useIonRouter } from '@ionic/vue';
+import {useIonRouter} from '@ionic/vue';
 import {encryptPassword} from "@/unit/unit";
 
 
