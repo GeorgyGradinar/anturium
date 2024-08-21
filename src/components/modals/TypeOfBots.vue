@@ -31,7 +31,6 @@
 import {modals} from "@/stores/modals";
 import {pairs} from "@/stores/pairs";
 import {storeToRefs} from "pinia";
-import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiRobotLove, mdiRobotAngry, mdiInformationSlabCircleOutline } from '@mdi/js';
 
 const modalsStore = modals();
