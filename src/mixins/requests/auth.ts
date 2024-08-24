@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ANTURIUM_STORE_KEY, HEADER_PARAMETERS, MAIN_URL} from "../../../config";
+import {ANTURIUM_STORE_KEY, API_URL, HEADER_PARAMETERS, MAIN_URL} from "../../../config";
 import {ILogin, IRegistration} from "@/interfaces/auth.js";
 import getHeaders from "@/mixins/requests/getHeaders";
 import {personsStore} from "@/stores/person";
@@ -34,7 +34,7 @@ export default function auth() {
   }
 
   function registration(data: IRegistration) {
-    axios.post(`${MAIN_URL}/auth/registration`, data, getHeaders([HEADER_PARAMETERS.content]))
+    axios.post(`${API_URL()}/auth/registration`, data, getHeaders([HEADER_PARAMETERS.content]))
       .then(response => {
         changeToken(response.data.token);
         getPersonInfo();
@@ -43,7 +43,7 @@ export default function auth() {
   }
 
   function login(data: ILogin) {
-    axios.post(`${MAIN_URL}/auth/login`, data, getHeaders([HEADER_PARAMETERS.content]))
+    axios.post(`${API_URL()}/auth/login`, data, getHeaders([HEADER_PARAMETERS.content]))
       .then(response => {
         changeToken(response.data.token);
         getPersonInfo();
@@ -52,7 +52,7 @@ export default function auth() {
   }
 
   function getPersonInfo() {
-    axios.get(`${MAIN_URL}/auth/user`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.authorization]))
+    axios.get(`${API_URL()}/auth/user`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.authorization]))
       .then(response => {
         changePerson(response.data.data);
         changeAllApiKeys(response.data.data?.apiKeys);

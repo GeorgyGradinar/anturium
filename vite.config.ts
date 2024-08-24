@@ -17,6 +17,7 @@ export default defineConfig({
   runtimeConfig: {
     public: {
       API_URL: process.env.API_URL,
+      VITE_SOCKET_URL: process.env.VITE_SOCKET_URL
     },
   },
   define: {

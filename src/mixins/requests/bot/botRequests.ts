@@ -1,5 +1,5 @@
 import axios from "axios";
-import {HEADER_PARAMETERS, MAIN_URL} from "../../../../config";
+import {API_URL, HEADER_PARAMETERS, MAIN_URL} from "../../../../config";
 import getHeaders from "@/mixins/requests/getHeaders";
 import {pairs} from "@/stores/pairs";
 import {storeToRefs} from "pinia";
@@ -13,21 +13,21 @@ export default function botRequests() {
   const personStore = personsStore();
 
   function getAllCryptoPairs() {
-    axios.get(`${MAIN_URL}/order/positionRisk`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
+    axios.get(`${API_URL()}/order/positionRisk`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
         changeAllPairs(response.data.data);
       })
   }
 
   function getAllCryptoPairsGrid() {
-    axios.get(`${MAIN_URL}/gridBot/activeBots`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
+    axios.get(`${API_URL()}/gridBot/activeBots`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
         changeAllPairs(response.data.data);
       })
   }
 
   function takeProfit(symbol: string, apiId: string | undefined) {
-    return axios.post(`${MAIN_URL}/gridBot/takeProfit`, {symbol, apiId},
+    return axios.post(`${API_URL()}/gridBot/takeProfit`, {symbol, apiId},
       getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
         return response
@@ -35,7 +35,7 @@ export default function botRequests() {
   }
 
   function changeWatching(symbol: string, status: StatusWatchingBot, apiId: string) {
-    return axios.put(`${MAIN_URL}/gridBot/watching`, {symbol, status, apiId},
+    return axios.put(`${API_URL()}/gridBot/watching`, {symbol, status, apiId},
       getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
         // changeAllPairs(response.data.data);
@@ -45,7 +45,7 @@ export default function botRequests() {
   }
 
   function webSocketBotsInfo() {
-    const socket = new WebSocket('wss://dev.anturium.online/websocket');
+    const socket = new WebSocket(`wss://${import.meta.env.VITE_SOCKET_URL}/websocket`);
     socket.onopen = () => {
       socket.send(JSON.stringify({
         "authorization": personStore.token

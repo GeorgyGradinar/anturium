@@ -10,16 +10,15 @@ import {IonApp, IonRouterOutlet} from '@ionic/vue';
 import auth from "@/mixins/requests/auth";
 import {onMounted} from "vue";
 import PopupsBlock from "@/components/popups/PopupsBlock.vue";
+import {API_URL} from "../config";
 
 const {initStore} = auth();
 
 onMounted(() => {
 
   initStore();
-  console.log(import.meta)
-  console.log(import.meta.env.VITE_API_URL)
-  // const IONIC_API_URL = import.meta.env.VITE_API_BASE_URL
-
+  console.log(API_URL())
+  console.log(process.env.VITE_SOCKET_URL)
 })
 </script>
 
