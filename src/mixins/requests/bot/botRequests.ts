@@ -2,7 +2,6 @@ import axios from "axios";
 import {API_URL, HEADER_PARAMETERS, MAIN_URL} from "../../../../config";
 import getHeaders from "@/mixins/requests/getHeaders";
 import {pairs} from "@/stores/pairs";
-import {storeToRefs} from "pinia";
 import {personsStore} from "@/stores/person";
 import {StatusWatchingBot} from "@/const/const";
 
