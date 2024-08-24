@@ -18,7 +18,7 @@ onMounted(() => {
 
   initStore();
   console.log(API_URL())
-  console.log(process.env.VITE_SOCKET_URL)
+  console.log(import.meta.env.VITE_SOCKET_URL)
 })
 </script>
 

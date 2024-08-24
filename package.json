@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:develop": "vite --mode dev",
+    "dev:preview": "vite --mode preview",
     "build": "vue-tsc && vite build",
-    "build:develop": "vue-tsc && vite build --mode dev",
+    "build:preview": "vue-tsc && vite build --mode preview",
     "preview": "vite preview",
     "test:e2e": "cypress run",
     "test:unit": "vitest",
