@@ -18,8 +18,8 @@ export default function botRequests() {
       })
   }
 
-  function getAllCryptoPairsGrid() {
-    axios.get(`${API_URL()}/gridBot/activeBots`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
+  async function getAllCryptoPairsGrid() {
+    await axios.get(`${API_URL()}/gridBot/activeBots`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
         changeAllPairs(response.data.data);
       })
