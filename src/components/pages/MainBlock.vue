@@ -2,6 +2,7 @@
   <div class="main-page">
     <SettingsBlock></SettingsBlock>
     <ShowApiKeyBlock v-for="apiKey in allPairs" :key="apiKey.id" :api-key="apiKey"></ShowApiKeyBlock>
+    <LoaderBoxis :isShow="isLoadingActiveBots"/>
   </div>
 </template>
 
@@ -11,8 +12,9 @@ import ShowApiKeyBlock from "@/components/main/ShowApiKeyBlock.vue";
 import {storeToRefs} from "pinia";
 import {personsStore} from "@/stores/person";
 import botRequests from "@/mixins/requests/bot/botRequests";
-import {watch} from "vue";
+import {ref, watch} from "vue";
 import {pairs} from "@/stores/pairs";
+import LoaderBoxis from "@/components/main/OrderElement/loaderBoxis.vue";
 
 const personStore = personsStore();
 const {person} = storeToRefs(personStore);
@@ -20,9 +22,14 @@ const pairsStore = pairs();
 const {allPairs} = storeToRefs(pairsStore);
 const {getAllCryptoPairsGrid} = botRequests();
 
-watch(person, () => {
-  getAllCryptoPairsGrid();
-})
+const isLoadingActiveBots = ref(false);
+
+watch(person,
+    async () => {
+      isLoadingActiveBots.value = true;
+      await getAllCryptoPairsGrid();
+      isLoadingActiveBots.value = false;
+    })
 </script>
 
 <style scoped lang="scss">
