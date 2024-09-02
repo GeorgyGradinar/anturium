@@ -1,31 +1,14 @@
 <template>
   <header>
-    <button class="logout" @click="prepareForLogout">Выйти</button>
-    <button @click="addRandomPopup">test</button>
+    <button class="logout" @click="prepareForLogout">Выйти</button>\
   </header>
 </template>
 
 <script setup lang="ts">
 import shared from "@/mixins/shared";
-import {modals} from "@/stores/modals";
-import {ref} from "vue";
 
 const {prepareForLogout} = shared();
 
-const modalsStore = modals();
-const {addRejectPopup, addDonePopup} = modalsStore;
-
-let test = ref(false);
-
-function addRandomPopup() {
-  if (test.value) {
-    addRejectPopup('new test reject');
-  } else {
-    addDonePopup('new test done');
-  }
-
-  test.value = !test.value;
-}
 </script>
 
 <style scoped lang="scss">
