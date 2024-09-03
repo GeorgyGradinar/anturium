@@ -1,15 +1,17 @@
 import axios from "axios";
-import {API_URL, HEADER_PARAMETERS, MAIN_URL} from "../../../../config";
+import {API_URL, HEADER_PARAMETERS} from "../../../../config";
 import getHeaders from "@/mixins/requests/getHeaders";
 import {pairs} from "@/stores/pairs";
 import {personsStore} from "@/stores/person";
 import {StatusWatchingBot} from "@/const/const";
+import {popupStore} from "@/stores/popup";
 
 export default function botRequests() {
 
   const pairsStore = pairs();
   const {changeAllPairs, changePairsFromWS} = pairsStore;
   const personStore = personsStore();
+  const storePopup = popupStore();
 
   function getAllCryptoPairs() {
     axios.get(`${API_URL()}/order/positionRisk`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
@@ -18,8 +20,8 @@ export default function botRequests() {
       })
   }
 
-  function getAllCryptoPairsGrid() {
-    axios.get(`${API_URL()}/gridBot/activeBots`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
+  async function getAllCryptoPairsGrid() {
+    await axios.get(`${API_URL()}/gridBot/activeBots`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
       .then(response => {
         changeAllPairs(response.data.data);
       })
@@ -58,6 +60,10 @@ export default function botRequests() {
       switch (data.type) {
         case "NOTIFICATION_POSITION_RISK":
           changePairsFromWS(data.data);
+          break
+        case "relistingBot":
+          storePopup.addDonePopup(`Прибыль по ${data.data.symbol} успешно зафиксирована. Ордера выставлены снова`);
+          break
       }
     }
   }
