@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 import {ref} from "vue";
 import {Popups} from "@/interfaces/sharedInterfaces";
 
-export const popupStore = defineStore('popupStore', () => {
+export const popup = defineStore('popupStore', () => {
   const allPopups = ref<Popups[]>([]);
 
   function addRejectPopup(text: string) {
@@ -39,7 +39,9 @@ export const popupStore = defineStore('popupStore', () => {
   }
 
   return {
+    allPopups,
     addDonePopup,
-    addRejectPopup
+    addRejectPopup,
+    deletePopup
   }
 })

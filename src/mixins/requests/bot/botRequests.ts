@@ -4,14 +4,14 @@ import getHeaders from "@/mixins/requests/getHeaders";
 import {pairs} from "@/stores/pairs";
 import {personsStore} from "@/stores/person";
 import {StatusWatchingBot} from "@/const/const";
-import {popupStore} from "@/stores/popup";
+import {popup} from "@/stores/popup";
 
 export default function botRequests() {
 
   const pairsStore = pairs();
   const {changeAllPairs, changePairsFromWS} = pairsStore;
   const personStore = personsStore();
-  const storePopup = popupStore();
+  const storePopup = popup();
 
   function getAllCryptoPairs() {
     axios.get(`${API_URL()}/order/positionRisk`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))

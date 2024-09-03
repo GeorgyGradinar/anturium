@@ -10,12 +10,12 @@
 <script setup lang="ts">
 import DonePopup from "@/components/popups/DonePopup.vue";
 import RejectPopup from "@/components/popups/RejectPopup.vue";
-import {modals} from "@/stores/modals";
+import {popup} from "@/stores/popup";
 import {storeToRefs} from "pinia";
 
-const modalsStore = modals();
-const {allPopups} = storeToRefs(modalsStore);
-const {deletePopup} = modalsStore;
+const popupStore = popup();
+const {allPopups} = storeToRefs(popupStore);
+const {deletePopup} = popupStore;
 
 </script>
 
