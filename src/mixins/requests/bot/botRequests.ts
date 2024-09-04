@@ -61,8 +61,8 @@ export default function botRequests() {
         case "NOTIFICATION_POSITION_RISK":
           changePairsFromWS(data.data);
           break
-        case "relistingBot":
-          storePopup.addDonePopup(`Прибыль по ${data.data.symbol} успешно зафиксирована. Ордера выставлены снова`);
+        case "NOTIFICATION_BOT":
+          if (data.data?.message === 'relistingBot') storePopup.addDonePopup(`Прибыль по ${data.data.symbol} успешно зафиксирована. Ордера выставлены снова`);
           break
       }
     }
