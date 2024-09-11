@@ -21,10 +21,14 @@ export default function botRequests() {
   }
 
   async function getAllCryptoPairsGrid() {
-    await axios.get(`${API_URL()}/gridBot/activeBots`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
-      .then(response => {
-        changeAllPairs(response.data.data);
-      })
+    try {
+      await axios.get(`${API_URL()}/gridBot/activeBots`, getHeaders([HEADER_PARAMETERS.content, HEADER_PARAMETERS.accept, HEADER_PARAMETERS.authorization]))
+          .then(response => {
+            changeAllPairs(response.data.data);
+          })
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   function takeProfit(symbol: string, apiId: string | undefined) {
